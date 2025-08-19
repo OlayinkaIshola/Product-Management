@@ -149,6 +149,27 @@ Email: jane@example.com
 Password: password123
 ```
 
+## 🌐 Live Demo
+
+- **Frontend**: [https://product-management-tool.netlify.app](https://product-management-tool.netlify.app)
+- **Backend API**: [https://product-management-backend.onrender.com](https://product-management-backend.onrender.com)
+
+## 🚀 Deployment
+
+### Quick Deploy to Netlify + Render
+
+1. **Fork this repository**
+2. **Deploy Backend to Render:**
+   - Connect your GitHub repo
+   - Set root directory to `backend`
+   - Add environment variables (see deploy.md)
+3. **Deploy Frontend to Netlify:**
+   - Connect your GitHub repo
+   - Set base directory to `frontend`
+   - Add environment variables pointing to your backend URL
+
+For detailed deployment instructions, see [deploy.md](deploy.md)
+
 ## Project Structure
 
 ```

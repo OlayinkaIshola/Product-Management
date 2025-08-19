@@ -3,22 +3,21 @@
 # Project Management Tool Setup Script
 echo "🚀 Setting up Project Management Tool..."
 
-# Check if Docker is installed
-if ! command -v docker &> /dev/null; then
-    echo "❌ Docker is not installed. Please install Docker first."
-    exit 1
-fi
-
-if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Docker Compose is not installed. Please install Docker Compose first."
-    exit 1
-fi
-
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then
     echo "❌ Node.js is not installed. Please install Node.js (v18 or higher) first."
+    echo "Download from: https://nodejs.org/"
     exit 1
 fi
+
+# Check Node.js version
+NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
+if [ "$NODE_VERSION" -lt 16 ]; then
+    echo "❌ Node.js version 16 or higher is required. Current version: $(node -v)"
+    exit 1
+fi
+
+echo "✅ Node.js version: $(node -v)"
 
 # Create environment files
 echo "📝 Creating environment files..."
@@ -37,43 +36,56 @@ echo "📦 Installing dependencies..."
 # Frontend dependencies
 echo "Installing frontend dependencies..."
 cd frontend
-npm install
+if npm install; then
+    echo "✅ Frontend dependencies installed successfully"
+else
+    echo "❌ Failed to install frontend dependencies"
+    exit 1
+fi
 cd ..
 
 # Backend dependencies
 echo "Installing backend dependencies..."
 cd backend
-npm install
-cd ..
+if npm install; then
+    echo "✅ Backend dependencies installed successfully"
+else
+    echo "❌ Failed to install backend dependencies"
+    exit 1
+fi
 
-# Setup database with Docker
-echo "🐳 Starting database with Docker..."
-docker-compose up -d postgres
-
-# Wait for database to be ready
-echo "⏳ Waiting for database to be ready..."
-sleep 10
-
-# Run database migrations
-echo "🗄️  Running database migrations..."
-cd backend
-npx prisma migrate dev --name init
-npx prisma db seed
+# Generate Prisma client
+echo "🔧 Generating Prisma client..."
+if npx prisma generate; then
+    echo "✅ Prisma client generated successfully"
+else
+    echo "❌ Failed to generate Prisma client"
+    exit 1
+fi
 cd ..
 
 echo "✅ Setup complete!"
 echo ""
 echo "🎉 Your Project Management Tool is ready!"
 echo ""
-echo "To start the application:"
-echo "1. Start all services: docker-compose up"
-echo "2. Or start individually:"
+echo "📋 Next Steps:"
+echo "1. Set up your database (PostgreSQL required)"
+echo "2. Update backend/.env with your database URL"
+echo "3. Run database migrations:"
+echo "   cd backend && npx prisma migrate dev --name init"
+echo "4. Seed the database:"
+echo "   npx prisma db seed"
+echo ""
+echo "🚀 To start the application:"
 echo "   - Frontend: cd frontend && npm run dev"
 echo "   - Backend: cd backend && npm run dev"
 echo ""
-echo "Access the application at: http://localhost:3000"
-echo "API documentation at: http://localhost:5000/api/health"
+echo "🌐 Access URLs:"
+echo "   - Frontend: http://localhost:5173"
+echo "   - Backend API: http://localhost:5000/api/health"
 echo ""
-echo "Default login credentials:"
-echo "Email: john@example.com"
-echo "Password: password123"
+echo "🔑 Default login credentials:"
+echo "   Email: john@example.com"
+echo "   Password: password123"
+echo ""
+echo "📖 For deployment instructions, see deploy.md"
