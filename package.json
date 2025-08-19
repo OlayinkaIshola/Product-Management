@@ -1,0 +1,21 @@
+{
+  "name": "project-management-tool",
+  "version": "1.0.0",
+  "description": "A comprehensive Trello-style project management tool",
+  "main": "index.js",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:all": "npm run install:frontend && npm run install:backend",
+    "start": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "preview": "cd frontend && npm run preview"
+  },
+  "keywords": ["project-management", "trello", "react", "nodejs"],
+  "author": "",
+  "license": "MIT"
+}
