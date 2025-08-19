@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../config/api'
 
 function Profile() {
   const [activeTab, setActiveTab] = useState('profile')
@@ -43,19 +43,13 @@ function Profile() {
     setMessage('')
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-
-      const response = await axios.put('/api/users/profile', profileData, config)
+      const response = await api.put('/api/users/profile', profileData)
       setMessage('Profile updated successfully!')
-      
+
       // Update user in localStorage
       const updatedUser = { ...user, ...response.data }
       localStorage.setItem('user', JSON.stringify(updatedUser))
-      
+
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to update profile')
     } finally {
@@ -76,16 +70,10 @@ function Profile() {
     }
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-
-      await axios.put('/api/users/password', {
+      await api.put('/api/users/password', {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
-      }, config)
+      })
 
       setMessage('Password updated successfully!')
       setPasswordData({

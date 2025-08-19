@@ -1,22 +1,3 @@
-# Deployment Instructions
-
-## 🚀 Quick Deployment Guide
-
-### 1. GitHub Repository Setup
-
-1. **Create GitHub Repository:**
-   - Go to https://github.com/new
-   - Repository name: `Product-Management`
-   - Description: `A comprehensive Trello-style project management tool built with React, Node.js, and PostgreSQL`
-   - Make it Public
-   - Click "Create repository"
-
-2. **Push Code to GitHub:**
-   ```bash
-   git remote add origin https://github.com/OlayinkaIshola/Product-Management.git
-   git branch -M main
-   git push -u origin main
-   ```
 
 ### 2. Backend Deployment (Render.com)
 
@@ -37,7 +18,7 @@
 3. **Add Environment Variables:**
    ```
    NODE_ENV=production
-   JWT_SECRET=your-super-secret-jwt-key-change-this
+   JWT_SECRET=Shakushaku1
    JWT_EXPIRE=30d
    CLIENT_URL=https://your-frontend-url.netlify.app
    ```

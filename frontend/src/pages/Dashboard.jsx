@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { getBoards } from '../store/slices/boardsSlice'
 import { openModal } from '../store/slices/uiSlice'
 import CreateBoardModal from '../components/CreateBoardModal'
-import axios from 'axios'
+import api from '../config/api'
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -23,12 +23,7 @@ function Dashboard() {
   const loadAnalytics = async () => {
     try {
       setAnalyticsLoading(true)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-      const response = await axios.get('/api/analytics/dashboard', config)
+      const response = await api.get('/api/analytics/dashboard')
       setAnalytics(response.data)
     } catch (error) {
       console.error('Failed to load analytics:', error)

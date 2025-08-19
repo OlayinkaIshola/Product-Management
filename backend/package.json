@@ -9,8 +9,12 @@
     "dev": "nodemon server.js",
     "test": "jest",
     "migrate": "npx prisma migrate dev",
+    "migrate:deploy": "npx prisma migrate deploy",
     "generate": "npx prisma generate",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "postinstall": "npx prisma generate",
+    "build": "npx prisma generate && npx prisma migrate deploy",
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
     "express": "^4.18.2",
