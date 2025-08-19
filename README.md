@@ -1,4 +1,4 @@
-# Project Management Tool (Trello Clone)
+# Project Management Tool 
 
 A comprehensive, full-featured project management application built with modern web technologies. This Trello-style tool includes real-time collaboration, analytics, and a beautiful responsive interface.
 
